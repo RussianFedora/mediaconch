@@ -1,8 +1,8 @@
-%global libmediainfo_version    0.7.81
-%global libzen_version          0.4.32
+%global libmediainfo_version    0.7.83
+%global libzen_version          0.4.33
 
 Name:           mediaconch
-Version:        16.01
+Version:        16.02
 Release:        1%{?dist}
 Summary:        Most relevant technical and tag data for video and audio files (CLI)
 
@@ -165,7 +165,8 @@ fi
 /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %files
-%doc Release/ReadMe_CLI_Linux.txt License.html License.GPLv3.html History_CLI.txt
+%doc Release/ReadMe_CLI_Linux.txt History_CLI.txt
+%license License.html License.GPLv3.html License.MPLv2.html
 %{_bindir}/mediaconch
 
 %files server
@@ -173,7 +174,8 @@ fi
 %{_bindir}/mediaconchd
 
 %files gui
-%doc Release/ReadMe_GUI_Linux.txt License.html License.GPLv3.html History_GUI.txt
+%doc Release/ReadMe_GUI_Linux.txt History_GUI.txt
+%license License.html License.GPLv3.html License.MPLv2.html
 %{_bindir}/mediaconch-gui
 %{_datadir}/applications/*.desktop
 %{_datadir}/pixmaps/*.png
@@ -183,5 +185,9 @@ fi
 
 
 %changelog
+* Wed Mar 02 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 16.02-1
+- Update to 16.02
+- add %%license macro
+
 * Wed Feb 10 2016 Vasiliy N. Glazov <vascom2@gmail.com> 16.01-1
 - Initial release
