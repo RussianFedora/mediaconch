@@ -30,7 +30,7 @@ BuildRequires:  libevent-devel
 # BuildRequires:  qt-devel
 BuildRequires:  qt5-qtbase-devel
 
-%if 0%{?fedora} < 24
+%if 0%{?fedora} < 24 || 0%{?rhel} <= 7
 BuildRequires:  qt5-qtwebkit-devel
 %else
 BuildRequires:  qt5-qtwebengine-devel
