@@ -30,10 +30,10 @@ BuildRequires:  libevent-devel
 # BuildRequires:  qt-devel
 BuildRequires:  qt5-qtbase-devel
 
-%if 0%{?fedora} < 24 || 0%{?rhel} <= 7
-BuildRequires:  qt5-qtwebkit-devel
-%else
+%if 0%{?fedora} >= 24 || 0%{?rhel} > 7
 BuildRequires:  qt5-qtwebengine-devel
+%else
+BuildRequires:  qt5-qtwebkit-devel
 %endif
 
 BuildRequires:  desktop-file-utils
@@ -112,7 +112,11 @@ popd
 
 # now build GUI
 pushd Project/Qt
+%if 0%{?rhel} > 7
     %{qmake_qt5}
+%else
+    %{qmake_qt5} USE_WEBKIT=1
+%endif
     %make_build
 popd
 
