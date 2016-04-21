@@ -112,7 +112,7 @@ popd
 
 # now build GUI
 pushd Project/Qt
-%if 0%{?rhel} > 7
+%if 0%{?fedora} >= 22 || 0%{?rhel} > 7
     %{qmake_qt5}
 %else
     %{qmake_qt5} USE_WEBKIT=1
