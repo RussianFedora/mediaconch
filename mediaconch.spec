@@ -3,7 +3,7 @@
 
 Name:           mediaconch
 Version:        16.03
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Most relevant technical and tag data for video and audio files (CLI)
 
 License:        GPLv3+ and MPLv2.0
@@ -38,6 +38,7 @@ BuildRequires:  pkgconfig(Qt5WebKit)
 BuildRequires:  desktop-file-utils
 BuildRequires:  pkgconfig(jansson)
 BuildRequires:  pkgconfig(systemd)
+BuildRequires:  libappstream-glib
 
 
 %description
@@ -164,6 +165,9 @@ install -m 644 -p %{SOURCE1}  %{buildroot}%{_unitdir}/mediaconchd.service
 install -dm 755 %{buildroot}%{_sysconfdir}/%{name}
 install -m 644 -p %{SOURCE2}  %{buildroot}%{_sysconfdir}/%{name}/MediaConch.rc
 
+%check
+appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata.xml
+
 %post gui
 /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 /usr/bin/update-desktop-database &> /dev/null || :
@@ -212,6 +216,9 @@ fi
 
 
 %changelog
+* Tue Apr 26 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 16.03-3
+- Add validate appdata XML
+
 * Tue Apr 26 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 16.03-2
 - Add appdata XML
 - Switch BRs to use pkgconfig
