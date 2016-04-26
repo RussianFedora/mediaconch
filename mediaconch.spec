@@ -3,12 +3,14 @@
 
 Name:           mediaconch
 Version:        16.03
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Most relevant technical and tag data for video and audio files (CLI)
 
 License:        GPLv3+ and MPLv2.0
 URL:            http://MediaArea.net/MediaConch
 Source0:        https://mediaarea.net/download/source/%{name}/%{version}/%{name}_%{version}.tar.xz
+Source1:        mediaconchd.service
+Source2:        MediaConch.rc
 
 Group:          Applications/Multimedia
 
@@ -35,6 +37,7 @@ BuildRequires:  pkgconfig(Qt5WebKit)
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  pkgconfig(jansson)
+BuildRequires:  pkgconfig(systemd)
 
 
 %description
@@ -68,6 +71,7 @@ Summary:    Supplies technical and tag information about a video or audio file (
 Group:      Applications/Multimedia
 Requires:   libzen%{?_isa} >= %{libzen_version}
 Requires:   libmediainfo%{?_isa} >= %{libmediainfo_version}
+%{?systemd_requires}
 
 %description server
 MediaConch is an implementation checker, policy checker, reporter,
@@ -154,6 +158,12 @@ install -m 644 -p Project/GNU/GUI/mediaconch-gui.kde4.desktop %{buildroot}%{_dat
 install -dm 755 %{buildroot}%{_datadir}/appdata/
 install -m 644 -p Project/GNU/GUI/mediaconch-gui.appdata.xml %{buildroot}%{_datadir}/appdata/mediaconch-gui.appdata.xml
 
+install -dm 755 %{buildroot}%{_unitdir}
+install -m 644 -p %{SOURCE1}  %{buildroot}%{_unitdir}/mediaconchd.service
+
+install -dm 755 %{buildroot}%{_sysconfdir}/%{name}
+install -m 644 -p %{SOURCE2}  %{buildroot}%{_sysconfdir}/%{name}/MediaConch.rc
+
 %post gui
 /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 /usr/bin/update-desktop-database &> /dev/null || :
@@ -168,6 +178,15 @@ fi
 %posttrans gui
 /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
+%post server
+%systemd_post mediaconchd.service
+
+%preun server
+%systemd_preun mediaconchd.service
+
+%postun server
+%systemd_postun_with_restart mediaconchd.service
+
 %files
 %doc Release/ReadMe_CLI_Linux.txt History_CLI.txt
 %license License.html License.GPLv3.html License.MPLv2.html
@@ -175,7 +194,10 @@ fi
 
 %files server
 %doc Documentation/Daemon.md Documentation/Config.md
+%config(noreplace) %{_sysconfdir}/%{name}/MediaConch.rc
 %{_bindir}/mediaconchd
+%{_unitdir}/mediaconchd.service
+
 
 %files gui
 %doc Release/ReadMe_GUI_Linux.txt History_GUI.txt
@@ -193,6 +215,7 @@ fi
 * Tue Apr 26 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 16.03-2
 - Add appdata XML
 - Switch BRs to use pkgconfig
+- Add systemd unit for mediaconchd
 
 * Tue Apr 12 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 16.03-1
 - Update to 16.03
