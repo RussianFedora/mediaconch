@@ -14,30 +14,27 @@ Group:          Applications/Multimedia
 
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig
-BuildRequires:  libmediainfo-devel >= %{libmediainfo_version}
-BuildRequires:  libzen-devel >= %{libzen_version}
-BuildRequires:  zlib-devel
+BuildRequires:  pkgconfig(libmediainfo) >= %{libmediainfo_version}
+BuildRequires:  pkgconfig(libzen) >= %{libzen_version}
+BuildRequires:  pkgconfig(zlib)
 BuildRequires:  libtool
 BuildRequires:  automake
 BuildRequires:  autoconf
-BuildRequires:  zlib-devel
-# BuildRequires:  libqt4-devel
-BuildRequires:  libxml2-devel
-BuildRequires:  libxslt-devel
-BuildRequires:  libcurl-devel
-BuildRequires:  sqlite-devel
-BuildRequires:  libevent-devel
-# BuildRequires:  qt-devel
-BuildRequires:  qt5-qtbase-devel
+BuildRequires:  pkgconfig(libxml-2.0)
+BuildRequires:  pkgconfig(libxslt)
+BuildRequires:  pkgconfig(libcurl)
+BuildRequires:  pkgconfig(sqlite3)
+BuildRequires:  pkgconfig(libevent)
+BuildRequires:  pkgconfig(Qt5)
 
-%if 0%{?fedora} >= 24 || 0%{?rhel} > 7
-BuildRequires:  qt5-qtwebengine-devel
+%if 0%{?fedora} >= 23 || 0%{?rhel} > 7
+BuildRequires:  pkgconfig(Qt5WebEngine)
 %else
-BuildRequires:  qt5-qtwebkit-devel
+BuildRequires:  pkgconfig(Qt5WebKit)
 %endif
 
 BuildRequires:  desktop-file-utils
-BuildRequires:  jansson-devel
+BuildRequires:  pkgconfig(jansson)
 
 
 %description
@@ -148,11 +145,14 @@ install -m 644 -p Project/GNU/GUI/mediaconch-gui.desktop %{buildroot}/%{_datadir
 
 desktop-file-install --dir="%{buildroot}%{_datadir}/applications" -m 644 Project/GNU/GUI/mediaconch-gui.desktop
 
-install -dm 755 %{buildroot}/%{_datadir}/apps/konqueror/servicemenus
+install -dm 755 %{buildroot}%{_datadir}/apps/konqueror/servicemenus
 install -m 644 -p Project/GNU/GUI/mediaconch-gui.kde3.desktop %{buildroot}/%{_datadir}/apps/konqueror/servicemenus/mediaconch-gui.desktop
 
-install -dm 755 %{buildroot}/%{_datadir}/kde4/services/ServiceMenus/
+install -dm 755 %{buildroot}%{_datadir}/kde4/services/ServiceMenus/
 install -m 644 -p Project/GNU/GUI/mediaconch-gui.kde4.desktop %{buildroot}/%{_datadir}/kde4/services/ServiceMenus/mediaconch-gui.desktop
+
+install -dm 755 %{buildroot}%{_datadir}/appdata/
+install -m 644 -p Project/GNU/GUI/mediaconch-gui.appdata.xml %{buildroot}/%{_datadir}/appdata/mediaconch-gui.appdata.xml
 
 %post gui
 /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
@@ -186,9 +186,14 @@ fi
 %{_datadir}/icons/hicolor/256x256/apps/*.png
 %{_datadir}/apps/konqueror/servicemenus/*.desktop
 %{_datadir}/kde4/services/ServiceMenus/*.desktop
+%{_datadir}/appdata/mediaconch-gui.appdata.xml
 
 
 %changelog
+* Tue Apr 26 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 16.03-2
+- Add appdata XML
+- Switch BRs to use pkgconfig
+
 * Tue Apr 12 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 16.03-1
 - Update to 16.03
 
