@@ -140,19 +140,19 @@ install -dm 755 %{buildroot}%{_datadir}/pixmaps
 install -m 644 -p Source/Resource/Image/MediaConch.png %{buildroot}%{_datadir}/pixmaps/%{name}.png
 
 # menu-entry
-install -dm 755 %{buildroot}/%{_datadir}/applications
-install -m 644 -p Project/GNU/GUI/mediaconch-gui.desktop %{buildroot}/%{_datadir}/applications
+install -dm 755 %{buildroot}%{_datadir}/applications
+install -m 644 -p Project/GNU/GUI/mediaconch-gui.desktop %{buildroot}%{_datadir}/applications
 
 desktop-file-install --dir="%{buildroot}%{_datadir}/applications" -m 644 Project/GNU/GUI/mediaconch-gui.desktop
 
 install -dm 755 %{buildroot}%{_datadir}/apps/konqueror/servicemenus
-install -m 644 -p Project/GNU/GUI/mediaconch-gui.kde3.desktop %{buildroot}/%{_datadir}/apps/konqueror/servicemenus/mediaconch-gui.desktop
+install -m 644 -p Project/GNU/GUI/mediaconch-gui.kde3.desktop %{buildroot}%{_datadir}/apps/konqueror/servicemenus/mediaconch-gui.desktop
 
 install -dm 755 %{buildroot}%{_datadir}/kde4/services/ServiceMenus/
-install -m 644 -p Project/GNU/GUI/mediaconch-gui.kde4.desktop %{buildroot}/%{_datadir}/kde4/services/ServiceMenus/mediaconch-gui.desktop
+install -m 644 -p Project/GNU/GUI/mediaconch-gui.kde4.desktop %{buildroot}%{_datadir}/kde4/services/ServiceMenus/mediaconch-gui.desktop
 
 install -dm 755 %{buildroot}%{_datadir}/appdata/
-install -m 644 -p Project/GNU/GUI/mediaconch-gui.appdata.xml %{buildroot}/%{_datadir}/appdata/mediaconch-gui.appdata.xml
+install -m 644 -p Project/GNU/GUI/mediaconch-gui.appdata.xml %{buildroot}%{_datadir}/appdata/mediaconch-gui.appdata.xml
 
 %post gui
 /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
