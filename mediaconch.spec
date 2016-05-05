@@ -2,15 +2,13 @@
 %global libzen_version          0.4.33
 
 Name:           mediaconch
-Version:        16.03
-Release:        3%{?dist}
+Version:        16.04
+Release:        1%{?dist}
 Summary:        Most relevant technical and tag data for video and audio files (CLI)
 
 License:        GPLv3+ and MPLv2.0
 URL:            http://MediaArea.net/MediaConch
 Source0:        https://mediaarea.net/download/source/%{name}/%{version}/%{name}_%{version}.tar.xz
-Source1:        mediaconchd.service
-Source2:        MediaConch.rc
 
 Group:          Applications/Multimedia
 
@@ -160,10 +158,10 @@ install -dm 755 %{buildroot}%{_datadir}/appdata/
 install -m 644 -p Project/GNU/GUI/mediaconch-gui.appdata.xml %{buildroot}%{_datadir}/appdata/mediaconch-gui.appdata.xml
 
 install -dm 755 %{buildroot}%{_unitdir}
-install -m 644 -p %{SOURCE1}  %{buildroot}%{_unitdir}/mediaconchd.service
+install -m 644 -p Project/GNU/Server/mediaconchd.service  %{buildroot}%{_unitdir}/mediaconchd.service
 
 install -dm 755 %{buildroot}%{_sysconfdir}/%{name}
-install -m 644 -p %{SOURCE2}  %{buildroot}%{_sysconfdir}/%{name}/MediaConch.rc
+install -m 644 -p Project/GNU/Server/MediaConch.rc  %{buildroot}%{_sysconfdir}/%{name}/MediaConch.rc
 
 %check
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata.xml
@@ -216,6 +214,9 @@ fi
 
 
 %changelog
+* Thu May 05 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 16.04-1
+- Update to 16.04
+
 * Tue Apr 26 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 16.03-3
 - Add validate appdata XML
 
