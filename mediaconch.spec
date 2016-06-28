@@ -54,6 +54,7 @@ Summary:    Supplies technical and tag information about a video or audio file (
 Group:      Applications/Multimedia
 Requires:   libzen%{?_isa} >= %{libzen_version}
 Requires:   libmediainfo%{?_isa} >= %{libmediainfo_version}
+Requires:   hicolor-icon-theme
 
 %description gui
 MediaConch is an implementation checker, policy checker, reporter,
