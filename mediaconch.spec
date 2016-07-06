@@ -2,7 +2,7 @@
 %global libzen_version          0.4.33
 
 Name:           mediaconch
-Version:        16.05
+Version:        16.06
 Release:        1%{?dist}
 Summary:        Most relevant technical and tag data for video and audio files (CLI)
 
@@ -215,6 +215,9 @@ fi
 
 
 %changelog
+* Wed Jul 06 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 16.06-1
+- Update to 16.06
+
 * Wed Jun 01 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 16.05-1
 - Update to 16.05
 
