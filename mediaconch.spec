@@ -2,7 +2,7 @@
 %global libzen_version          0.4.33
 
 Name:           mediaconch
-Version:        16.06
+Version:        16.08
 Release:        1%{?dist}
 Summary:        Most relevant technical and tag data for video and audio files (CLI)
 
@@ -27,7 +27,7 @@ BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  pkgconfig(libevent)
 BuildRequires:  pkgconfig(Qt5)
 
-%if 0%{?fedora} >= 23 || 0%{?rhel} > 7
+%if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires:  pkgconfig(Qt5WebEngine)
 %else
 BuildRequires:  pkgconfig(Qt5WebKit)
@@ -84,7 +84,7 @@ This project is maintained by MediaArea and funded by PREFORMA.
 This package includes the server.
 
 %prep
-%setup -q -n MediaConch
+%autosetup -n MediaConch
 rm -rf Source/ThirdParty
 
 sed -i 's/.$//' *.txt *.html Release/*.txt
@@ -113,7 +113,7 @@ popd
 
 # now build GUI
 pushd Project/Qt
-%if 0%{?fedora} >= 22 || 0%{?rhel} > 7
+%if 0%{?fedora} || 0%{?rhel} > 7
     %{qmake_qt5}
 %else
     %{qmake_qt5} USE_WEBKIT=1
@@ -123,7 +123,6 @@ popd
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
 pushd Project/GNU/CLI
     make install-strip DESTDIR=%{buildroot}
 popd
@@ -215,6 +214,12 @@ fi
 
 
 %changelog
+* Wed Sep 21 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 16.08-1
+- Update to 16.08
+
+* Mon Aug 01 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 16.07-1
+- Update to 16.07
+
 * Wed Jul 06 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 16.06-1
 - Update to 16.06
 
