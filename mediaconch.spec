@@ -33,9 +33,7 @@ BuildRequires:  pkgconfig(Qt5WebEngine)
 BuildRequires:  pkgconfig(Qt5WebKit)
 %endif
 
-%if 0%{?rhel}
 BuildRequires:  desktop-file-utils
-%endif
 BuildRequires:  pkgconfig(jansson)
 BuildRequires:  pkgconfig(systemd)
 BuildRequires:  libappstream-glib
