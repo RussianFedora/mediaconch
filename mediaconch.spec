@@ -1,8 +1,8 @@
-%global libmediainfo_version    0.7.91
-%global libzen_version          0.4.34
+%global libmediainfo_version    0.7.94
+%global libzen_version          0.4.35
 
 Name:           mediaconch
-Version:        17.01
+Version:        17.03
 Release:        1%{?dist}
 Summary:        Most relevant technical and tag data for video and audio files (CLI)
 
@@ -33,7 +33,9 @@ BuildRequires:  pkgconfig(Qt5WebEngine)
 BuildRequires:  pkgconfig(Qt5WebKit)
 %endif
 
+%if 0%{?rhel}
 BuildRequires:  desktop-file-utils
+%endif
 BuildRequires:  pkgconfig(jansson)
 BuildRequires:  pkgconfig(systemd)
 BuildRequires:  libappstream-glib
@@ -168,14 +170,18 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata
 
 %post gui
 /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
+%if 0%{?fedora} < 25 || 0%{?rhel}
 /usr/bin/update-desktop-database &> /dev/null || :
+%endif
 
 %postun gui
 if [ $1 -eq 0 ] ; then
     /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
     /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 fi
+%if 0%{?fedora} < 25 || 0%{?rhel}
 /usr/bin/update-desktop-database &> /dev/null || :
+%endif
 
 %posttrans gui
 /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
@@ -214,6 +220,12 @@ fi
 
 
 %changelog
+* Thu Apr 13 2017 Vasiliy N. Glazov <vascom2@gmail.com> - 17.03-1
+- Update to 17.03
+
+* Thu Apr 06 2017 Vasiliy N. Glazov <vascom2@gmail.com> - 17.02-1
+- Update to 17.02
+
 * Thu Feb 09 2017 Vasiliy N. Glazov <vascom2@gmail.com> - 17.01-1
 - Update to 17.01
 
