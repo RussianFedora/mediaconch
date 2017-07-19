@@ -43,7 +43,6 @@ This package includes the command line interface.
 
 %package gui
 Summary:    Supplies technical and tag information about a video or audio file (GUI)
-Group:      Applications/Multimedia
 Requires:   hicolor-icon-theme
 
 %description gui
@@ -58,7 +57,6 @@ This package includes the graphical user interface.
 
 %package server
 Summary:    Supplies technical and tag information about a video or audio file (Server)
-Group:      Applications/Multimedia
 %{?systemd_requires}
 
 %description server
