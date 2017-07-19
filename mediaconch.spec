@@ -108,11 +108,11 @@ popd
 
 %install
 pushd Project/GNU/CLI
-    make install-strip DESTDIR=%{buildroot}
+    %make_install
 popd
 
 pushd Project/GNU/Server
-    make install-strip DESTDIR=%{buildroot}
+    %make_install
 popd
 
 pushd Project/Qt
@@ -131,12 +131,6 @@ install -dm 755 %{buildroot}%{_datadir}/applications
 install -m 644 -p Project/GNU/GUI/mediaconch-gui.desktop %{buildroot}%{_datadir}/applications
 
 desktop-file-install --dir="%{buildroot}%{_datadir}/applications" -m 644 Project/GNU/GUI/mediaconch-gui.desktop
-
-install -dm 755 %{buildroot}%{_datadir}/apps/konqueror/servicemenus
-install -m 644 -p Project/GNU/GUI/mediaconch-gui.kde3.desktop %{buildroot}%{_datadir}/apps/konqueror/servicemenus/mediaconch-gui.desktop
-
-install -dm 755 %{buildroot}%{_datadir}/kde4/services/ServiceMenus/
-install -m 644 -p Project/GNU/GUI/mediaconch-gui.kde4.desktop %{buildroot}%{_datadir}/kde4/services/ServiceMenus/mediaconch-gui.desktop
 
 install -dm 755 %{buildroot}%{_datadir}/appdata/
 install -m 644 -p Project/GNU/GUI/mediaconch-gui.appdata.xml %{buildroot}%{_datadir}/appdata/mediaconch-gui.appdata.xml
@@ -190,8 +184,6 @@ fi
 %{_datadir}/applications/*.desktop
 %{_datadir}/pixmaps/*.png
 %{_datadir}/icons/hicolor/256x256/apps/*.png
-%{_datadir}/apps/konqueror/servicemenus/*.desktop
-%{_datadir}/kde4/services/ServiceMenus/*.desktop
 %{_datadir}/appdata/mediaconch-gui.appdata.xml
 
 
