@@ -3,14 +3,12 @@
 
 Name:           mediaconch
 Version:        17.06
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Most relevant technical and tag data for video and audio files (CLI)
 
 License:        GPLv3+ and MPLv2.0
 URL:            http://MediaArea.net/MediaConch
 Source0:        https://mediaarea.net/download/source/%{name}/%{version}/%{name}_%{version}.tar.xz
-
-Group:          Applications/Multimedia
 
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig
@@ -26,13 +24,7 @@ BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  pkgconfig(libevent)
 BuildRequires:  pkgconfig(Qt5)
-
-%if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires:  pkgconfig(Qt5WebEngine)
-%else
-BuildRequires:  pkgconfig(Qt5WebKit)
-%endif
-
 BuildRequires:  desktop-file-utils
 BuildRequires:  pkgconfig(jansson)
 BuildRequires:  pkgconfig(systemd)
@@ -52,8 +44,6 @@ This package includes the command line interface.
 %package gui
 Summary:    Supplies technical and tag information about a video or audio file (GUI)
 Group:      Applications/Multimedia
-Requires:   libzen%{?_isa} >= %{libzen_version}
-Requires:   libmediainfo%{?_isa} >= %{libmediainfo_version}
 Requires:   hicolor-icon-theme
 
 %description gui
@@ -69,8 +59,6 @@ This package includes the graphical user interface.
 %package server
 Summary:    Supplies technical and tag information about a video or audio file (Server)
 Group:      Applications/Multimedia
-Requires:   libzen%{?_isa} >= %{libzen_version}
-Requires:   libmediainfo%{?_isa} >= %{libmediainfo_version}
 %{?systemd_requires}
 
 %description server
@@ -113,11 +101,7 @@ popd
 
 # now build GUI
 pushd Project/Qt
-%if 0%{?fedora} || 0%{?rhel} > 7
     %{qmake_qt5}
-%else
-    %{qmake_qt5} USE_WEBKIT=1
-%endif
     %make_build
 popd
 
@@ -168,18 +152,12 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata
 
 %post gui
 /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
-%if 0%{?fedora} < 25 || 0%{?rhel}
-/usr/bin/update-desktop-database &> /dev/null || :
-%endif
 
 %postun gui
 if [ $1 -eq 0 ] ; then
     /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
     /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 fi
-%if 0%{?fedora} < 25 || 0%{?rhel}
-/usr/bin/update-desktop-database &> /dev/null || :
-%endif
 
 %posttrans gui
 /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
@@ -218,6 +196,9 @@ fi
 
 
 %changelog
+* Wed Jul 19 2017 Vasiliy N. Glazov <vascom2@gmail.com> - 17.06-2
+- Clean spec
+
 * Fri Jul 14 2017 Vasiliy N. Glazov <vascom2@gmail.com> - 17.06-1
 - Update to 17.06
 
