@@ -3,7 +3,7 @@
 
 Name:           mediaconch
 Version:        17.06
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Most relevant technical and tag data for video and audio files (CLI)
 
 License:        GPLv3+ and MPLv2.0
@@ -72,8 +72,12 @@ This package includes the server.
 %prep
 %autosetup -n MediaConch
 rm -rf Source/ThirdParty
-
 sed -i 's/.$//' *.txt *.html Release/*.txt
+
+sed -i 's/AC_PROG_LIBTOOL/LT_INIT([disable-static])/' Project/GNU/CLI/configure.ac
+sed -i 's/AC_PROG_LIBTOOL/LT_INIT([disable-static])/' Project/GNU/Server/configure.ac
+sed -i 's/INCLUDES/AM_CPPFLAGS/' Project/GNU/CLI/Makefile.am
+sed -i 's/INCLUDES/AM_CPPFLAGS/' Project/GNU/Server/Makefile.am
 
 pushd Project/GNU/CLI
     autoreconf -fiv
@@ -170,7 +174,7 @@ fi
 
 %files server
 %doc Documentation/Daemon.md Documentation/Config.md
-%config(noreplace) %{_sysconfdir}/%{name}/MediaConch.rc
+%config(noreplace) %{_sysconfdir}/%{name}
 %{_bindir}/mediaconchd
 %{_unitdir}/mediaconchd.service
 
@@ -186,6 +190,9 @@ fi
 
 
 %changelog
+* Thu Jul 20 2017 Vasiliy N. Glazov <vascom2@gmail.com> - 17.06-3
+- AC_PROG_LIBTOOL -> LT_INIT
+
 * Wed Jul 19 2017 Vasiliy N. Glazov <vascom2@gmail.com> - 17.06-2
 - Clean spec
 
