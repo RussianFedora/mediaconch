@@ -75,8 +75,8 @@ sed -i 's/.$//' *.txt *.html Release/*.txt
 
 sed -i 's/AC_PROG_LIBTOOL/LT_INIT([disable-static])/' Project/GNU/CLI/configure.ac
 sed -i 's/AC_PROG_LIBTOOL/LT_INIT([disable-static])/' Project/GNU/Server/configure.ac
-sed -i 's/INCLUDES/AM_CPPFLAGS/' Project/GNU/CLI/Makefile.am
-sed -i 's/INCLUDES/AM_CPPFLAGS/' Project/GNU/Server/Makefile.am
+# sed -i 's/INCLUDES/AM_CPPFLAGS/' Project/GNU/CLI/Makefile.am
+# sed -i 's/INCLUDES/AM_CPPFLAGS/' Project/GNU/Server/Makefile.am
 
 pushd Project/GNU/CLI
     autoreconf -fiv
