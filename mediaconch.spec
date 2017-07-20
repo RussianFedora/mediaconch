@@ -7,11 +7,10 @@ Release:        3%{?dist}
 Summary:        Most relevant technical and tag data for video and audio files (CLI)
 
 License:        GPLv3+ and MPLv2.0
-URL:            http://MediaArea.net/MediaConch
+URL:            https://mediaarea.net/MediaConch/
 Source0:        https://mediaarea.net/download/source/%{name}/%{version}/%{name}_%{version}.tar.xz
 
 BuildRequires:  gcc-c++
-BuildRequires:  pkgconfig
 BuildRequires:  pkgconfig(libmediainfo) >= %{libmediainfo_version}
 BuildRequires:  pkgconfig(libzen) >= %{libzen_version}
 BuildRequires:  pkgconfig(zlib)
@@ -23,11 +22,11 @@ BuildRequires:  pkgconfig(libxslt)
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  pkgconfig(libevent)
-BuildRequires:  pkgconfig(Qt5)
-BuildRequires:  pkgconfig(Qt5WebEngine)
+BuildRequires:  qt5-qtbase-devel
+BuildRequires:  qt5-qtwebengine-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  pkgconfig(jansson)
-BuildRequires:  pkgconfig(systemd)
+BuildRequires:  systemd
 BuildRequires:  libappstream-glib
 
 
